@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Le corps et les couleurs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light;--bg:#FFFFFF;--ink:#1C1C1C;--bur:#8C2F39;--gry:#5F5A52;--gold:#C9962B;--line:#E2DDD2;--onb:#FFFFFF;--tint:#F5F2EB;--ok:#1E9E54;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+
+
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Atkinson Hyperlegible',system-ui,sans-serif;font-size:20px;line-height:1.55;min-height:100vh}
+.wrap{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;padding:24px clamp(20px,5vw,64px) 40px}.main{flex:1;display:flex;flex-direction:column;justify-content:center;width:100%;max-width:900px;margin:0 auto;padding:24px 0}
+.hd{display:flex;justify-content:space-between;font-size:17px;font-weight:700;letter-spacing:.02em;color:var(--gry);border-bottom:1px solid var(--ink);padding-bottom:8px}
+.bar{height:2px;background:var(--line);margin-top:2px}.bar i{display:block;height:2px;background:var(--gold);transition:width .3s}
+h1,h2,.q{font-family:'Playfair Display',Georgia,serif;font-weight:400;margin:0}
+h1{font-size:clamp(40px,8vw,72px);line-height:1.1;margin:0 0 14px}
+.sub{color:var(--gry);font-size:22px;margin:0 0 32px}
+.rub{display:flex;gap:16px;padding:14px 0;border-top:1px solid var(--line)}
+.rub b{font-size:24px;color:var(--bur);min-width:70px}
+.rub span{display:block;color:var(--gry);font-size:17px}
+.ins{color:var(--gry);font-size:19px;margin:20px 0 0}
+.q{font-family:'Atkinson Hyperlegible',system-ui,sans-serif;font-size:clamp(30px,5.5vw,48px);line-height:1.4;margin:20px 0 8px}
+.sw{width:100%;height:120px;border-radius:6px;margin:18px 0 0}
+.bl{display:inline-block;min-width:140px;text-align:center;border-bottom:3px solid var(--bur);color:var(--bur);padding:0 10px;border-radius:4px}.bl.ok,.in.ok{color:var(--ok);border-bottom-color:var(--ok);background:rgba(30,158,84,.1);box-shadow:0 0 18px rgba(30,158,84,.55)}
+.in{font:inherit;color:var(--bur);background:transparent;border:0;border-bottom:3px solid var(--bur);border-radius:4px;width:9em;max-width:100%;padding:0 6px;text-align:center;outline:none}
+.in:focus-visible{background:var(--tint)}
+.in.no{color:var(--gry);text-decoration:line-through;border-bottom-color:var(--gry)}
+.row{margin:22px 0 0;display:flex;flex-wrap:wrap;gap:10px}
+.opt,.btn{font:inherit;font-size:22px;cursor:pointer;border-radius:999px;padding:12px 28px;border:2px solid var(--ink);background:transparent;color:var(--ink)}
+.opt[aria-pressed="true"]{background:var(--tint);border-color:var(--bur);color:var(--bur)}
+.opt.ok{background:var(--ok);border-color:var(--ok);color:#fff;box-shadow:0 0 0 4px rgba(30,158,84,.25),0 0 26px rgba(30,158,84,.6)}
+.opt.no{border-style:dashed;color:var(--gry);border-color:var(--gry);text-decoration:line-through}
+.opt:disabled{cursor:default}
+.btn{background:var(--ink);color:var(--bg);padding:14px 36px;font-weight:700}
+.btn.sec{background:transparent;color:var(--ink)}
+:is(.opt,.btn):focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.fb{margin:24px 0 0;padding-left:14px;border-left:4px solid var(--gold);min-height:32px;font-size:21px}
+.fb.ok{border-color:var(--ok)}.fb.ok strong{color:var(--ok)}.fb.no{border-color:var(--gry)}.fb.err{border-color:var(--gold);color:var(--gry)}
+.fb strong{font-weight:700;color:var(--bur)}
+.big{font-family:'Playfair Display',Georgia,serif;font-size:110px;line-height:1;margin:0 0 8px}
+.big small{font-size:40px;color:var(--gry)}
+.res{display:flex;align-items:center;gap:14px;padding:16px 0;border-top:1px solid var(--line);font-size:20px}
+.res span:first-child{flex:1}.res .t{flex:0 0 90px;height:4px;background:var(--line)}.res .t i{display:block;height:4px;background:var(--bur)}
+.res b{font-weight:700;min-width:70px;text-align:right}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+</head>
+<body>
+<main class="wrap" id="app"></main>
+<script>
+var EX=[
+{n:1,t:"Traduisez !",ins:"Retrouvez le mot français qui correspond à la couleur ou à la définition.",items:[
+{q:"Quelle est cette couleur ?",sw:"#B5262F",a:["rouge"],h:"Le sang et les tomates sont rouges."},
+{q:"Quelle est cette couleur ?",sw:"#2F5FA8",a:["bleu"],h:"Le ciel est bleu."},
+{q:"Quelle est cette couleur ?",sw:"#E3B32A",a:["jaune"],h:"Le citron et la banane sont jaunes."},
+{q:"Quelle est cette couleur ?",sw:"#3F7F4E",a:["vert"],h:"Le vert est la couleur de l’herbe."},
+{q:"On voit avec…",o:["les yeux","les oreilles","les dents"],a:["les yeux"],h:"« Yeux » est le pluriel d’« œil »."},
+{q:"On les coiffe avec un peigne :",o:["les cheveux","les orteils","les épaules"],a:["les cheveux"],h:"« Cheveux » est masculin pluriel."},
+{q:"Il est au bout de la jambe :",o:["la main","le pied","le genou"],a:["le pied"],h:"« Pied » est masculin : le pied, les pieds."},
+{q:"Le rouge mélangé au blanc donne le ___.",a:["rose"],h:"Rouge + blanc = rose."},
+{q:"Le chocolat est de couleur ___.",a:["marron"],h:"Le chocolat est marron."},
+{q:"Le bleu mélangé au jaune donne le ___.",a:["vert"],h:"Bleu + jaune = vert."}]},
+{n:2,t:"Choisissez la bonne préposition !",ins:"Choisissez : à, au, à la, à l’ ou aux.",items:[
+{q:"J’ai mal ___ tête.",o:["à la","au","aux"],a:["à la"],h:"« Tête » est féminin : à + la = à la."},
+{q:"J’ai mal ___ dos.",o:["à la","au","à l’"],a:["au"],h:"« Dos » est masculin : à + le = au."},
+{q:"Il a mal ___ ventre.",o:["au","à la","aux","à l’"],a:["au"],h:"« Ventre » est masculin : à + le = au."},
+{q:"Elle a mal ___ jambes.",o:["à la","au","aux"],a:["aux"],h:"Pluriel : à + les = aux."},
+{q:"J’ai mal ___ oreille.",o:["à la","à l’","au"],a:["à l’"],h:"« Oreille » commence par une voyelle : à l’oreille."},
+{q:"Tu as mal ___ yeux ?",o:["au","aux","à l’"],a:["aux"],h:"« Yeux » est pluriel : aux yeux."},
+{q:"Je donne un stylo bleu ___ Paul.",o:["à","au","à la","aux"],a:["à"],h:"Devant un prénom, on garde « à » sans article."},
+{q:"Nous avons mal ___ pieds après la marche.",o:["au","aux","à l’","à la"],a:["aux"],h:"« Pieds » est pluriel : aux pieds."},
+{q:"Ma sœur a mal ___ épaule gauche.",o:["à l’","à la","au","aux"],a:["à l’"],h:"« Épaule » commence par une voyelle : à l’épaule."},
+{q:"Marc a les cheveux noirs, mais il a mal ___ cou.",o:["au","à la","à l’","aux"],a:["au"],h:"« Cou » est masculin : à + le = au."}]},
+{n:3,t:"Écrivez le mot !",ins:"Écrivez le mot français qui manque. Il n’y a pas de choix : cherchez dans votre mémoire.",items:[
+{q:"On écrit avec la ___.",a:["main"],hint:"Une partie du corps, au féminin.",h:"La main, les mains."},
+{q:"Pour sentir une fleur, on utilise le ___.",a:["nez"],h:"Le nez ne change pas au pluriel : les nez."},
+{q:"Avec la ___, on mange et on parle.",a:["bouche"],h:"La bouche, au féminin."},
+{q:"Le ___ est entre la tête et les épaules.",a:["cou"],h:"Le cou, au masculin."},
+{q:"On a dix ___ aux pieds.",a:["orteils"],hint:"Au pluriel.",h:"Un orteil, des orteils."},
+{q:"Marie a de longs ___ bruns.",a:["cheveux"],hint:"Un mot masculin pluriel.",h:"On dit toujours les cheveux."},
+{q:"Les ___ de Léa sont verts.",a:["yeux"],hint:"Au pluriel.",h:"Un œil, des yeux."},
+{q:"Le sang est ___.",a:["rouge"],h:"Le sang est rouge."},
+{q:"Le citron est ___.",a:["jaune"],h:"Le citron est jaune."},
+{q:"Aujourd’hui, le ciel est ___.",a:["bleu"],h:"Le ciel est bleu."}]}];
+var S,app=document.getElementById("app");
+function norm(s){return s.trim().toLowerCase().replace(/'/g,"’").replace(/\s+/g," ")}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+function start(){S={e:-1,i:0,sc:[0,0,0],sel:null,done:false};render()}
+function render(){
+ if(S.e<0){app.innerHTML='<div class="hd"><span>Révision · A1–A2</span><span>3 exercices</span></div><div class="main"><h1>Le corps et les couleurs</h1><p class="sub">Trente questions pour réviser le vocabulaire et les prépositions.</p>'+
+ EX.map(function(x){return '<div class="rub"><b>N° '+x.n+'</b><div>'+x.t+'<span>'+x.items.length+' questions · 1 point par bonne réponse</span></div></div>'}).join("")+
+ '<div class="row"><button class="btn" data-a="go">Commencer</button></div></div>';return}
+ if(S.e>2){final();return}
+ var ex=EX[S.e],it=ex.items[S.i],p=it.q.split("___"),slot=it.o?'<span class="bl" id="bl">&nbsp;</span>':'<input class="in" id="in" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Votre réponse">';
+ var q=p.length>1?esc(p[0])+slot+esc(p[1]):esc(it.q);
+ var pct=((S.e*10+S.i)/30*100);
+ app.innerHTML='<div class="hd"><span>N° '+ex.n+' — '+ex.t+'</span><span>'+(S.i+1)+' / '+ex.items.length+'</span></div><div class="bar"><i style="width:'+pct+'%"></i></div><div class="main">'+
+ (S.i===0?'<p class="ins">'+ex.ins+'</p>':'')+
+ (it.sw?'<div class="sw" style="background:'+it.sw+'" role="img" aria-label="Une couleur à identifier"></div>':'')+
+ '<p class="q">'+q+'</p>'+(p.length===1&&!it.o?'<div class="row"><input class="in" id="in" style="width:14em" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Votre réponse"></div>':'')+
+ (it.hint?'<p class="ins" style="margin-top:4px">Indice : '+it.hint+'</p>':'')+
+ (it.o?'<div class="row" role="group" aria-label="Choix">'+it.o.map(function(o){return '<button class="opt" data-o="'+o+'" aria-pressed="false">'+o+'</button>'}).join("")+'</div>':'')+
+ '<div class="fb" id="fb" role="status" aria-live="polite"></div><div class="row"><button class="btn" id="go" data-a="chk">Vérifier</button></div></div>';
+ S.sel=null;S.done=false;var i=document.getElementById("in");if(i)i.focus()}
+function check(){
+ var ex=EX[S.e],it=ex.items[S.i],fb=document.getElementById("fb"),inp=document.getElementById("in"),val=it.o?S.sel:(inp?inp.value:"");
+ if(!val||!norm(val)){fb.className="fb err";fb.textContent=it.o?"Choisissez une réponse avant de vérifier.":"Écrivez une réponse avant de vérifier.";return}
+ var ok=it.a.indexOf(norm(val))>-1;S.done=true;if(ok)S.sc[S.e]++;
+ fb.className="fb "+(ok?"ok":"no");
+ fb.innerHTML=(ok?"<strong>Très bien !</strong> ":"<strong>Pas tout à fait.</strong> La bonne réponse est « "+it.a[0]+" ». ")+it.h;
+ if(it.o){var bl=document.getElementById("bl");if(bl){bl.textContent=ok?val:it.a[0];if(ok)bl.classList.add("ok")}
+  [].forEach.call(document.querySelectorAll(".opt"),function(b){b.disabled=true;var v=b.getAttribute("data-o");if(v===it.a[0])b.classList.add("ok");else if(v===val)b.classList.add("no")})}
+ else if(inp){inp.readOnly=true;if(ok){inp.value=it.a[0];inp.classList.add("ok")}else{inp.classList.add("no");inp.insertAdjacentHTML("afterend",' <span class="bl ok">'+it.a[0]+'</span>')}}
+ var g=document.getElementById("go"),last=S.e===2&&S.i===9;g.textContent=last?"Voir mon résultat":"Question suivante";g.setAttribute("data-a","next");g.focus()}
+function next(){S.i++;if(S.i>=EX[S.e].items.length){S.e++;S.i=0}render();window.scrollTo(0,0)}
+function final(){
+ var t=S.sc[0]+S.sc[1]+S.sc[2],m=t>=27?"Excellent ! Vous maîtrisez le vocabulaire du corps et des couleurs.":t>=20?"Très bien ! Encore un petit effort pour tout retenir.":t>=12?"Bon début. Relisez le vocabulaire, puis réessayez.":"Courage ! Révisez la leçon, puis recommencez : vous allez progresser.";
+ app.innerHTML='<div class="hd"><span>Résultat final</span><span>Terminé</span></div><div class="main"><div class="big">'+t+'<small> / 30</small></div><h2 style="font-size:32px;margin:0 0 28px">'+m+'</h2>'+
+ EX.map(function(x,k){return '<div class="res"><span>N° '+x.n+' — '+x.t+'</span><span class="t"><i style="width:'+S.sc[k]*10+'%"></i></span><b>'+S.sc[k]+' / 10</b></div>'}).join("")+
+ '<div class="row" style="margin-top:28px"><button class="btn" data-a="go">Recommencer</button></div></div>';window.scrollTo(0,0)}
+app.addEventListener("click",function(e){
+ var o=e.target.closest(".opt"),a=e.target.closest("[data-a]");
+ if(o&&!S.done){S.sel=o.getAttribute("data-o");[].forEach.call(document.querySelectorAll(".opt"),function(b){b.setAttribute("aria-pressed",b===o?"true":"false")});var bl=document.getElementById("bl");if(bl)bl.textContent=S.sel;var fb=document.getElementById("fb");fb.className="fb";fb.textContent="";return}
+ if(!a)return;var k=a.getAttribute("data-a");
+ if(k==="go"){S.e=0;S.i=0;S.sc=[0,0,0];render()}else if(k==="chk")check();else if(k==="next")next()});
+app.addEventListener("keydown",function(e){if(e.key==="Enter"&&e.target.id==="in"){e.preventDefault();var g=document.getElementById("go");if(g)g.click()}});
+start();
+</script>
+</body>
+</html>
